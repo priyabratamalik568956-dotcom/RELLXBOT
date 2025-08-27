@@ -1,0 +1,247 @@
+1 command start 
+if message.text == "/start":
+    amount = 0
+
+    keyboard = {
+        "keyboard": [
+            [{"text": "One Time Setup ❤️‍🔥"}],
+            [{"text": "Headshot 🚨"}, {"text": "Location 🌍"}],
+            [{"text": "📞 Support"}, {"text": "📽 How to Use"}]
+        ],
+        "resize_keyboard": True
+    }
+
+    # Step 1: Send initial progress message
+    updating = bot.sendMessage(
+        chat_id=message.chat.id,
+        text="⏳ Updating..."
+    )
+    msg_id = updating.message_id
+
+    # Step 2: Progress bar frames
+    progress_frames = [
+        ("🔁 ▰▱▱▱▱▱▱▱▱▱ 0%", 0.3),
+        ("🔁 ▰▰▱▱▱▱▱▱▱▱ 10%", 0.3),
+        ("🔁 ▰▰▰▰▱▱▱▱▱▱ 25%", 0.3),
+        ("🔁 ▰▰▰▰▰▱▱▱▱▱ 40%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▱▱▱ 56%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▱▱ 67%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▰▱ 88%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▰▰ 100%", 0.4),
+        ("✅ Done", 0.5)
+    ]
+
+    for frame, delay in progress_frames:
+        bot.editMessageText(
+            chat_id=message.chat.id,
+            message_id=msg_id,
+            text=frame
+        )
+        time.sleep(delay)
+
+    # Step 3: Delete progress bar message
+    bot.deleteMessage(chat_id=message.chat.id, message_id=msg_id)
+
+    # Step 4: Send photo + stylish welcome
+    bot.sendPhoto(
+        chat_id=message.chat.id,
+        photo="https://envs.sh/hvz.jpg/IMG20250810701.jpg",
+        caption=(
+            "<b>🪴 WELCOME TO FF PANEL BOT 🪴</b>\n\n"
+            "🔥 We Provide <u>Cheapest</u> And <u>Most Powerful</u> Panel In The World 🌎\n\n"
+            "✨ <b>Features Include:</b>\n"
+            "• Ultra Fast Service 🚀\n"
+            "• 24/7 Support 🛡\n"
+            "• Trusted By Thousands ❤️\n\n"
+            "||Tap Below To Unlock Premium Experience||"
+        ),
+        parse_mode="HTML",
+        reply_markup=keyboard
+    )
+
+    # Step 5: Referral Bonus Logic
+    if User.getData("referbonus") == None:
+        if User.getData("referrer") != None:
+            refer = User.getData("referrer")
+            libs.Resources.anotherRes("balance", user=refer).add(amount)
+            bot.replyText(
+                refer,
+                f"<i>You have received {amount} Points from {message.from_user.first_name}</i>"
+            )
+            User.saveData("referbonus", True)
+            
+2 command 
+mode = Bot.getData("Headshot 🚨")
+if mode == "Off":
+    bot.sendMessage(
+        chat_id=u,
+        text= "⚠️ Sara Raat soya nahi subah mujhe sone do 😴 \n\n  Nind Puri Hui nahin Khwab pure hone do 😆 Good night 🌉 \n\n Agar Koy Utha sakta hei to Utha do  \n\n 👉 7908817900 🥲",
+        parse_mode="HTML"
+    )
+    raise ReturnCommand()
+
+bot.deleteMessage(chat_id=u, message_id=message.message_id)
+text = "<b>💸 Scan the QR Code or pay to the UPI ID given Details below 👇\n\n💰 List Of Payment PANEL —\n▪️ 100₹ = 15 Days 🪬\n▪️140₹ = 20 Days 🍀\n▪️ 180₹ = 30 Days ❤️‍🔥\n⚠️ After paying, click on the “✅ Paid” button</b>"
+buttons = [[InlineKeyboardButton(" ✅ Sended", callback_data="/upide2")]]
+m = InlineKeyboardMarkup(buttons)
+bot.sendPhoto(photo="https://envs.sh/Qs6.jpg/IMG20250807669.jpg", caption=text, reply_markup=m)
+
+Ye wala 👆 cod 3no mein rehega headshot jeise jitna bhi button lagao ge 
+
+3 command 
+bot.deleteMessage(chat_id=u, message_id=message.message_id)
+bot.sendMessage("<b>➡️ Please Send Your Payment UTR Id.( Transaction Id Must Be 12 Digits )</b>")
+Bot.handleNextCommand("/upide3")
+
+4
+
+bot.deleteMessage(chat_id=u, message_id=message.message_id)
+if len(message.text) > 11:
+    User.saveData("utr", message.text)
+    bot.sendMessage("<b>Send Payment Screenshot\n\n(If Send Fake Ban From Bot 🚫)</b>")
+    Bot.handleNextCommand("/upide4")
+else:
+    bot.sendMessage("<b>⚠️ UTR Not Valid Please Send Real Payment UTR ;</b>")
+    
+    5
+    
+    admin_chat = Bot.getData("admin_chat")
+error = options
+bot.replyText(5143389125,f"<b>Dear Admin Error Found ❌\n\n{error}</b>")
+
+6
+if message.text == "/cancel❌":
+    bot.sendMessage("❌ Process Cancelled")
+    Bot.handleNextCommand("/cancel❌")  # enter command name
+    raise ReturnCommand
+
+admin = 5143389125  # Enter Your ID Here
+
+markup = [[InlineKeyboardButton(text='↩️ Reply User', callback_data=f'/replyUser {message.chat.id}')]]
+markup = InlineKeyboardMarkup(markup)
+
+bot.sendMessage(
+    chat_id=admin,
+    text=f"*📩 New Support Message From:\n\n"
+         f"➡️ Name: {message.chat.first_name}\n"
+         f"➡️ Username: @{message.chat.username}\n"
+         f"➡️ ID: {message.chat.id}\n\n"
+         f"📝 Message: {message.text}*",
+    parse_mode="markdown",
+    reply_markup=markup
+)
+
+bot.replyText(
+    message.chat.id,
+    f"*✅ Message Sent To The Administrator:* _{message.text}_",
+    parse_mode="markdown"
+)
+
+7
+Bot.handleNextCommand("/support")
+keyboard = ReplyKeyboardMarkup(True)
+keyboard.row("/cancel❌")
+bot.replyText(chat_id=message.chat.id, text="📞 Say, how can I help you?", parse_mode="html", reply_markup=keyboard)
+
+8
+if message.text == "/cancel❌":
+    amount = 0
+
+    keyboard = {
+        "keyboard": [
+            [{"text": "One Time Setup ❤️‍🔥"}],
+            [{"text": "Headshot 🚨"}, {"text": "Location 🌍"}],
+            [{"text": "📞 Support"}, {"text": "📽 How to Use"}]
+        ],
+        "resize_keyboard": True
+    }
+
+    # Step 1: Send initial progress message
+    updating = bot.sendMessage(
+        chat_id=message.chat.id,
+        text="⏳ Updating..."
+    )
+    msg_id = updating.message_id
+
+    # Step 2: Progress bar frames
+    progress_frames = [
+        ("🔁 ▰▱▱▱▱▱▱▱▱▱ 0%", 0.3),
+        ("🔁 ▰▰▱▱▱▱▱▱▱▱ 10%", 0.3),
+        ("🔁 ▰▰▰▰▱▱▱▱▱▱ 25%", 0.3),
+        ("🔁 ▰▰▰▰▰▱▱▱▱▱ 40%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▱▱▱ 56%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▱▱ 67%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▰▱ 88%", 0.3),
+        ("🔁 ▰▰▰▰▰▰▰▰▰▰ 100%", 0.4),
+        ("✅ Done", 0.5)
+    ]
+
+    for frame, delay in progress_frames:
+        bot.editMessageText(
+            chat_id=message.chat.id,
+            message_id=msg_id,
+            text=frame
+        )
+        time.sleep(delay)
+
+    # Step 3: Delete progress bar message
+    bot.deleteMessage(chat_id=message.chat.id, message_id=msg_id)
+
+    # Step 4: Send photo + stylish welcome
+    bot.sendPhoto(
+        chat_id=message.chat.id,
+        photo="https://envs.sh/hvm.jpg/IMG20250810786.jpg",
+        caption=(
+            "<b>🪴 WELCOME BACK BOSS 🪴</b>\n\n"
+        ),
+        parse_mode="HTML",
+        reply_markup=keyboard
+    )
+
+    # Step 5: Referral Bonus Logic
+    if User.getData("referbonus") == None:
+        if User.getData("referrer") != None:
+            refer = User.getData("referrer")
+            libs.Resources.anotherRes("balance", user=refer).add(amount)
+            bot.replyText(
+                refer,
+                f"<i>You have received {amount} Points from {message.from_user.first_name}</i>"
+            )
+            User.saveData("referbonus", True)
+            
+            
+            9
+try:
+    # Delete user's original message
+    bot.deleteMessage(chat_id=u, message_id=message.message_id)
+
+    # Get UTR (previously saved)
+    utr = User.getData("utr")
+
+    # Check if user has sent a photo
+    if message.photo:
+        buttons = [
+            [InlineKeyboardButton("Send File 🗃️", callback_data=f"/approvedepo {message.chat.id}"),
+             InlineKeyboardButton("Decline", callback_data=f"/declinedepo {message.chat.id}")]
+        ]
+        M = InlineKeyboardMarkup(buttons)
+
+        # Send photo to admin
+        bot.sendPhoto(
+            chat_id=5143389125,
+            photo=message.photo[-1].file_id,  # use highest resolution
+            caption=f"🆕 New Deposit: {utr}",
+            reply_markup=M
+        )
+
+        # Notify user
+        Bot.sendMessage("<b>Your Deposit Sent For Verification ✅</b>")
+    else:
+        Bot.sendMessage("❌ Please send a valid screenshot.")
+except Exception as e:
+    bot.sendMessage(f"⚠️ Error: {str(e)}")
+    
+    
+    10
+    
+    
